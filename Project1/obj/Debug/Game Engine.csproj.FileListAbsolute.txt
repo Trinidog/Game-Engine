@@ -1,2 +1,0 @@
-C:\Users\Robert\Desktop\C#Apps\Project1\Project1\obj\Debug\Game Engine.csprojResolveAssemblyReference.cache
-C:\Users\Robert\Source\Repos\Game-Engine-master\Project1\bin\Debug\Project1.exe.config
