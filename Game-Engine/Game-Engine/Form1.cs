@@ -11,16 +11,25 @@ using System.Reflection;
 
 namespace Game_Engine
 {
+    
+
     public partial class Form1 : Form
     {
-        do you see flickering????
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams handleParam = base.CreateParams;
+                handleParam.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED       
+                return handleParam;
+            }
+        }
         
-        private int x = 10;
+        private int x = 1;
         public Form1()
         {
-            
             InitializeComponent();
-           
+            
         }
        
         private void screen_Paint(object sender, PaintEventArgs e)//paint method is run on window event or by the invalidate method located in the timer1_Tick method
@@ -29,7 +38,7 @@ namespace Game_Engine
             this.DoubleBuffered = true;
             Graphics gObject = screen.CreateGraphics();
 
-            Brush red = new SolidBrush(Color.Red);
+            Brush red = new SolidBrush(Color.Blue);
             Pen redPen = new Pen(red, 8);
 
             gObject.DrawLine(redPen, x, 10, 400, 376);
