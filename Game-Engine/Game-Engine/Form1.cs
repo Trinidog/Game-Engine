@@ -16,7 +16,7 @@ namespace Game_Engine
         
         protected override CreateParams CreateParams
         {
-            get
+            get 
             {
                 CreateParams handleParam = base.CreateParams;
                 handleParam.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED       
