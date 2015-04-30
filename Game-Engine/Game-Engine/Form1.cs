@@ -11,10 +11,9 @@ using System.Reflection;
 
 namespace Game_Engine
 {
-    
-
     public partial class Form1 : Form
     {
+        
         protected override CreateParams CreateParams
         {
             get
@@ -38,10 +37,10 @@ namespace Game_Engine
             this.DoubleBuffered = true;
             Graphics gObject = screen.CreateGraphics();
 
-            Brush red = new SolidBrush(Color.Blue);
-            Pen redPen = new Pen(red, 8);
+            Brush blau = new SolidBrush(Color.Purple);
+            Pen blauPen = new Pen(blau, 8);
 
-            gObject.DrawLine(redPen, x, 10, 400, 376);
+            gObject.DrawLine(blauPen, x, 10, 400, 376);
         }
 
         private void timer1_Tick(object sender, EventArgs e) //every tick
