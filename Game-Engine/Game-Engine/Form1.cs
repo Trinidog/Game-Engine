@@ -45,7 +45,7 @@ namespace Game_Engine
 
         private void timer1_Tick(object sender, EventArgs e) //every tick
         {
-            x += 10;
+            x += 10;//This changes x by 10
             screen.Invalidate(); //This renders the screen avery frame (which is evcery 33 miliseconds, if you check the timer 1 object in the Design viewer for this class
         } 
     }
