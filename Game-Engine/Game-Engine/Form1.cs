@@ -43,6 +43,8 @@ namespace Game_Engine
             gObject.DrawLine(blauPen, x, 10, 400, 376);
         }
 
+        //
+
         private void timer1_Tick(object sender, EventArgs e) //every tick
         {
             x += 10;//This changes x by 10
