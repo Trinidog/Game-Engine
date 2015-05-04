@@ -5,9 +5,9 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Reflection;
-
 namespace Game_Engine
 {
     public partial class Form1 : Form
@@ -15,51 +15,63 @@ namespace Game_Engine
 
         private int px = 0;
         private int py = 0;
-        
+        private int speed = 1;
+        private float pvx = 0;
+        private float pvy = 0;
+
         protected override CreateParams CreateParams
         {
-            get 
+            get
             {
                 CreateParams handleParam = base.CreateParams;
                 handleParam.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED       
                 return handleParam;
             }
         }
-        
+
         private int x = 1;
         public Form1()
         {
             InitializeComponent();
-            
         }
-       
-        private void screen_Paint(object sender, PaintEventArgs e)//paint method is run on window event or by the invalidate method located in the timer1_Tick method
+
+        private void screen_Paint(object sender, PaintEventArgs e)
         {
-            
+            //paint method is run on window event or by the invalidate method located in the timer1_Tick method
             this.DoubleBuffered = true;
             Graphics gObject = screen.CreateGraphics();
-
             Render(gObject);
         }
 
-        
+
 
         private void timer1_Tick(object sender, EventArgs e) //every tick
         {
-            Tick();
-            screen.Invalidate(); //This renders the screen every frame (which is evcery 33 miliseconds, if you check the timer 1 object in the Design viewer for this class
+            
+            screen.Invalidate();
+            //This renders the screen every frame (which is every 33 milliseconds, if you check the timer 1 object in the Design viewer for this class
         }
 
-        //TICK METHOD
-
-        private void Tick()
+        private void timer2_Tick(object sender, EventArgs e) //every tick
         {
 
+            
+        }
+
+        
+        //TICK METHOD
+        private void Tick()
+        {
+            pvx *= 0.9F;
+            pvy *= 0.9F;
+
+            px += (int)pvx;
+            py += (int)pvy;
         }
 
         private void Render(Graphics g)
         {
-            FillRec(Color.Green, g, px, py, px+50, py+50);
+            FillRec(Color.Green, g, px, py, px + 50, py + 50);
         }
 
         //Rendering Code
@@ -78,30 +90,43 @@ namespace Game_Engine
             DrawLine(size, c, g, x1, y2, x2, y2);
         }
 
+
+
         private void FillRec(Color c, Graphics g, int x1, int y1, int x2, int y2)
         {
-            
-            for (int i = 0; i < x2-x1; i++)
+            for (int i = 0; i < x2 - x1; i++)
             {
-                DrawRec(1, c, g, x1+i, y1, x2-i, y2);
-            }    
+                DrawRec(1, c, g, x1 + i, y1, x2 - i, y2);
+            }
         }
 
-
         //INPUTS
-
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode.ToString() == "Up")
             {
-                py--;
+                pvy -= speed;
             }
             if (e.KeyCode.ToString() == "Down")
             {
-                py++;
+                pvy += speed;
             }
+            if (e.KeyCode.ToString() == "Right")
+            {
+                pvx += speed;
+            }
+            if (e.KeyCode.ToString() == "Left")
+            {
+                pvx -= speed;
+            }
+        }
+
+        private void timer2_Tick_1(object sender, EventArgs e)
+        {
+            Console.WriteLine("UPS");
+            Tick();
+            
             
         }
     }
-
 }
