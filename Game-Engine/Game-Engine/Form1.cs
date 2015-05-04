@@ -5,7 +5,6 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Reflection;
 
@@ -13,6 +12,9 @@ namespace Game_Engine
 {
     public partial class Form1 : Form
     {
+
+        private int px = 0;
+        private int py = 0;
         
         protected override CreateParams CreateParams
         {
@@ -37,19 +39,69 @@ namespace Game_Engine
             this.DoubleBuffered = true;
             Graphics gObject = screen.CreateGraphics();
 
-            Brush blau = new SolidBrush(Color.Blue);
-            Pen blauPen = new Pen(blau, 8);
-
-            gObject.DrawLine(blauPen, x, 10, 400, 376);
+            Render(gObject);
         }
 
-        //
+        
 
         private void timer1_Tick(object sender, EventArgs e) //every tick
         {
-            x += 10;//This changes x by 10
-            screen.Invalidate(); //This renders the screen avery frame (which is evcery 33 miliseconds, if you check the timer 1 object in the Design viewer for this class
-        } 
+            Tick();
+            screen.Invalidate(); //This renders the screen every frame (which is evcery 33 miliseconds, if you check the timer 1 object in the Design viewer for this class
+        }
+
+        //TICK METHOD
+
+        private void Tick()
+        {
+
+        }
+
+        private void Render(Graphics g)
+        {
+            FillRec(Color.Green, g, px, py, px+50, py+50);
+        }
+
+        //Rendering Code
+        private void DrawLine(int size, Color c, Graphics g, int x1, int y1, int x2, int y2)
+        {
+            Brush Bc = new SolidBrush(c);
+            Pen Pc = new Pen(c, size);
+            g.DrawLine(Pc, x1, y1, x2, y2);
+        }
+
+        private void DrawRec(int size, Color c, Graphics g, int x1, int y1, int x2, int y2)
+        {
+            DrawLine(size, c, g, x1, y1, x2, y1);
+            DrawLine(size, c, g, x2, y1, x2, y2);
+            DrawLine(size, c, g, x1, y1, x1, y2);
+            DrawLine(size, c, g, x1, y2, x2, y2);
+        }
+
+        private void FillRec(Color c, Graphics g, int x1, int y1, int x2, int y2)
+        {
+            
+            for (int i = 0; i < x2-x1; i++)
+            {
+                DrawRec(1, c, g, x1+i, y1, x2-i, y2);
+            }    
+        }
+
+
+        //INPUTS
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.ToString() == "Up")
+            {
+                py--;
+            }
+            if (e.KeyCode.ToString() == "Down")
+            {
+                py++;
+            }
+            
+        }
     }
 
 }
